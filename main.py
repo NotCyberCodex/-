@@ -1,19 +1,5 @@
 import aminofix
 from time import sleep
-from colored import fore, style, attr
-from pyfiglet import Figlet
-from pyfiglet import figlet_format
-from colored import Fore, style, attr
-
-print(""" 
-
-░█████╗░░█████╗░██████╗░███████╗██╗░░██╗
-██╔══██╗██╔══██╗██╔══██╗██╔════╝╚██╗██╔╝
-██║░░╚═╝██║░░██║██║░░██║█████╗░░░╚███╔╝░
-██║░░██╗██║░░██║██║░░██║██╔══╝░░░██╔██╗░
-╚█████╔╝╚█████╔╝██████╔╝███████╗██╔╝╚██╗
-░╚════╝░░╚════╝░╚═════╝░╚══════╝╚═╝░░╚═╝\n\n""")
-print(Fore.RED)
 
 client = aminofix.Client()
 client.parse_headers = lambda data=None, type=None: {**aminofix.headers.ApisHeaders(deviceId=aminofix.helpers.gen_deviceId() if client.autoDevice else client.device_id, data=data, type=type).headers, 'Host': 'service.aminoapps.com'}
