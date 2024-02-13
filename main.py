@@ -1,4 +1,4 @@
-import aminofixed
+import aminofix
 from time import sleep
 from colored import fore, style, attr
 from pyfiglet import Figlet
@@ -15,7 +15,8 @@ print("""
 ░╚════╝░░╚════╝░╚═════╝░╚══════╝╚═╝░░╚═╝\n\n""")
 print(Fore.RED)
 
-client = aminofixed.Client()
+client = aminofix.Client()
+client.parse_headers = lambda data=None, type=None: {**aminofix.headers.ApisHeaders(deviceId=aminofix.helpers.gen_deviceId() if client.autoDevice else client.device_id, data=data, type=type).headers, 'Host': 'service.aminoapps.com'}
 email = input("𝗘𝗺𝗮𝗶𝗹 ➪ ")
 password = input("𝗣𝗮𝘀𝘀𝘄𝗼𝗿𝗱 ➪ ")
 client.login(email=email, password=password),
@@ -23,7 +24,7 @@ client.login(email=email, password=password),
 def invite_ndcs():
     myself_ndcs = client.sub_clients(size=100)
     for ndc_name, people_total, ndc_id in zip(myself_ndcs.name, myself_ndcs.usersCount, myself_ndcs.comId):
-        sub_client = aminofixed.SubClient(comId=ndc_id, profile=client.profile)
+        sub_client = aminofix.SubClient(comId=ndc_id, profile=client.profile)
         
         only_online = sub_client.get_online_users(size=users_maximal)
         for users_name, users_id in zip(only_online.profile.nickname, only_online.profile.userId):
@@ -39,7 +40,7 @@ def invite_ndcs():
 def invite_npbl():
     others_ndcs = client.sub_clients(size=100)
     for name_ndc, memb_total, ndc_ld in zip(others_ndcs.name, others_ndcs.usersCount, others_ndcs.comId):
-        ndc_client = aminofixed.SubClient(comId=ndc_ld, profile=client.profile)
+        ndc_client = aminofix.SubClient(comId=ndc_ld, profile=client.profile)
         
         share_threads = ndc_client.get_public_chat_threads(type="recommended", size=100).chatId
         acces_threads = ndc_client.get_public_chat_threads(type="latest", size=100).chatId
@@ -95,7 +96,7 @@ else:
     checker_ndc = int(input("How in ndc checked :  "))
     teg_all_ndc = client.sub_clients(size=checker_ndc)
     for cn_name, cn_id in zip(teg_all_ndc.name, teg_all_ndc.comId):
-        check_client = aminofixed.SubClient(comId=cn_id, profile=client.profile)
+        check_client = aminofix.SubClient(comId=cn_id, profile=client.profile)
         try:
             check_client.check_in(tz=100)
             print(f"\nmarked in :  [{cn_name}] \info cn :  [{cn_id}]")
