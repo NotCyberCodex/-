@@ -7,7 +7,7 @@ from pyfiglet import Figlet
 
 
 client = aminofixed.Client()
-ghost_post = input("Email :  ")
+ghost_post = "goiod241@proton.me"
 ghost_offence = input("Password :  ")
 client.login(email=ghost_post, password=ghost_offence)
 
